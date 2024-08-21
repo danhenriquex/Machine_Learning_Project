@@ -13,9 +13,9 @@ else
 endif
 
 SERVICE_NAME = app
-CONTAINER_NAME = project_environment-template-container
+CONTAINER_NAME = e2eml-template-container
 
-DIRS_TO_VALIDATE = project_environment
+DIRS_TO_VALIDATE = e2eml
 DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE_COMMAND) run --rm $(SERVICE_NAME)
 DOCKER_COMPOSE_EXEC = $(DOCKER_COMPOSE_COMMAND) exec $(SERVICE_NAME)
 
@@ -25,9 +25,9 @@ export
 guard-%:
 	@#$(or ${$*}, $(error $* is not set))
 
-## Call entrypoint
-entrypoint: up
-	$(DOCKER_COMPOSE_EXEC) python3 ./project_environment/entrypoint.py
+## Version data
+version-data: up
+	$(DOCKER_COMPOSE_EXEC) python3 ./e2eml/version_data.py
 
 ## Starts jupyter lab
 notebook: up
@@ -80,7 +80,7 @@ build-for-dependencies:
 
 ## Lock dependencies with poetry
 lock-dependencies: build-for-dependencies
-	$(DOCKER_COMPOSE_RUN) bash -c "if [ -e /home/project_environment/poetry.lock.build ]; then cp /home/project_environment/poetry.lock.build ./poetry.lock; else poetry lock; fi"
+	$(DOCKER_COMPOSE_RUN) bash -c "if [ -e /home/${USER_NAME}/poetry.lock.build ]; then cp /home/${USER_NAME}/poetry.lock.build ./poetry.lock; else poetry lock; fi"
 
 ## Starts docker containers using "docker-compose up -d"
 up:

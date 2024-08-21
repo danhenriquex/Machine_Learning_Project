@@ -2,30 +2,23 @@ services:
   app:
     user: root
     hostname: "${HOST_NAME:-project_environment}"
-    image: project_environment
-    container_name: project_environment-template-container
+    image: e2eml_data
+    container_name: e2eml-data-container
     build:
       context: .
       dockerfile: ./docker/Dockerfile
       args:
-        USER_NAME: ${USER_NAME:-danilohssantana}
+        USER_NAME: ${USER_NAME:-danhenriquex}
         USER_ID: ${USER_ID:-2000}
     # env_file:
     #   ~.envs/.app
 
     volumes:
       - ./:/app
-      - ~/.config/gcloud:${HOME}/.config/gcloud
+      - ~/.config/gcloud/:/home/${USER_NAME}/.config/gcloud
+      - ~/.ssh:/home/${USER_NAME}/.ssh
     ports:
-      - 8080:8080
-
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
+      - 8888:8888
 
     ipc: host
     init: true
