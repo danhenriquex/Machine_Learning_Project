@@ -1,5 +1,4 @@
-# E2E-DataScience
+# E2E_ML_Project
 
 - Docker
 - Hydra
-# E2E_ML_Project
