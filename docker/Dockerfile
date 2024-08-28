@@ -44,10 +44,9 @@ RUN poetry config virtualenvs.create false \
     && rm -rf ${HOME}/.cache/*
 
 USER root
-
 COPY ./docker/scripts/* /
 RUN chown -R ${USER_NAME} /*.sh && chmod +x /*.sh
 USER ${USER_NAME}
 
-COPY . /app/
-CMD ["/startup-script.sh"]
+RUN git config --global user.email "danilohssantana@gmail.com" \
+    && git config --global user.name "danhenriquex"
