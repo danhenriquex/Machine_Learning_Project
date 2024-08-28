@@ -1,7 +1,7 @@
 services:
   app:
     user: root
-    hostname: "${HOST_NAME:-project_environment}"
+    hostname: "${HOST_NAME:-e2eml}"
     image: e2eml_data
     container_name: e2eml-data-container
     build:

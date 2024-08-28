@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "project_environment"
+name = "e2eml"
 version = "0.1.0"
 description = ""
 authors = ["danhenriquex <danilohssantana@gmail.com>"]
@@ -37,7 +37,7 @@ ensure_newline_before_comments = true
 line_length = 120
 indent = 4
 lines_between_types = 1
-known_first_party = ["project_environment"]
+known_first_party = ["e2eml"]
 default_section = "THIRDPARTY"
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 

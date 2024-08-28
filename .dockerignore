@@ -1,6 +1,6 @@
 *
 
 !docker/
-!project_environment/
+!e2eml/
 !pyproject.toml
 !poetry.lock

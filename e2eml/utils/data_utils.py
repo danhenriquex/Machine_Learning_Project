@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from project_environment.utils import get_logger, run_shell_command
+from e2eml.utils.utils import get_logger, run_shell_command
 
 DATA_UTILS_LOGGER = get_logger(Path(__file__).name)
 
