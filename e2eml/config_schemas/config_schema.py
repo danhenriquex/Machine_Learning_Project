@@ -4,7 +4,8 @@ from pydantic.dataclasses import dataclass
 
 @dataclass
 class Config:
-    hello: str = "world"
+    dvc_remote_name: str = "gcs-storage"
+    dvc_remote_url: str = "gs://e2eml/data/raw"
 
 
 def setup_config() -> None:

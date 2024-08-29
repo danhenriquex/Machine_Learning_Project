@@ -13,7 +13,7 @@ else
 endif
 
 SERVICE_NAME = app
-CONTAINER_NAME = e2eml-template-container
+CONTAINER_NAME = e2eml-data-container
 
 DIRS_TO_VALIDATE = e2eml
 DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE_COMMAND) run --rm $(SERVICE_NAME)
