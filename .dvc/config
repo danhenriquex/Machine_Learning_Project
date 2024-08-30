@@ -1,6 +1,3 @@
 [core]
     analytics = false
     autostage = true
-    remote = gcs-storage
-['remote "gcs-storage"']
-    url = gs://e2emllearning/data/raw
