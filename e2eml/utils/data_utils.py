@@ -45,7 +45,6 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
 
         # Add data to DVC
         run_shell_command(f"dvc add {dvc_raw_data_folder}")
-        print("oi")
         # Stage changes
         run_shell_command("git add .")
 
