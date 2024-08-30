@@ -1,5 +1,5 @@
 from pathlib import Path
-from subprocess import CalledProcessError
+from subprocess import CalledProcessError, SubprocessError, check_output, run
 
 from e2eml.utils.utils import get_logger, run_shell_command
 
@@ -33,24 +33,53 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
 
 
 def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
-    DATA_UTILS_LOGGER.info("Commiting to DVC")
-    current_version = ""
+    DATA_UTILS_LOGGER.info("Committing to DVC")
 
-    print("test")
-
-    if not current_version:
+    try:
+        # Fetch the current version
         current_version = run_shell_command("git tag --list | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
-    next_version = f"v{int(current_version)+1}"
-    run_shell_command(f"dvc add {dvc_raw_data_folder}")
-    run_shell_command("git add .")
-    run_shell_command(f"git commit -nm 'Updated version of the data from v{current_version} to {next_version}'")
-    run_shell_command(f"git tag -a {next_version} -m 'Data version {next_version}'")
-    run_shell_command(f"dvc push {dvc_raw_data_folder}.dvc --remote {dvc_remote_name}")
-    run_shell_command("git push --follow-tags")
-    run_shell_command("git push -f --tags")
 
-    run_shell_command(f"dvc add {dvc_raw_data_folder}")
-    run_shell_command(f"dvc push -r {dvc_remote_name}")
+        # Default to '0' if no version is found
+        current_version = current_version or "0"
+        next_version = f"v{int(current_version)+1}"
+
+        # Add data to DVC
+        run_shell_command(f"dvc add {dvc_raw_data_folder}")
+
+        # Stage changes
+        run_shell_command("git add .")
+
+        # Check Git status to ensure there are changes to commit
+        git_status = check_output(["git", "status", "--porcelain"]).decode().strip()
+        if not git_status:
+            DATA_UTILS_LOGGER.info("No changes to commit.")
+            return
+
+        # Commit changes
+        run_shell_command(f"git commit -nm 'Updated version of the data from v{current_version} to {next_version}'")
+
+        # Tag the commit
+        run_shell_command(f"git tag -a {next_version} -m 'Data version {next_version}'")
+
+        # Push changes
+        run_shell_command(f"dvc push {dvc_raw_data_folder}.dvc --remote {dvc_remote_name}")
+        run_shell_command("git push --follow-tags")
+        run_shell_command("git push -f --tags")
+
+    except CalledProcessError as e:
+        DATA_UTILS_LOGGER.error(f"Command failed: {e.cmd}\nReturn code: {e.returncode}\nOutput: {e.output}")
+        raise
+    except SubprocessError as e:
+        DATA_UTILS_LOGGER.error(f"Subprocess error occurred: {str(e)}")
+        raise
+    except Exception as e:
+        DATA_UTILS_LOGGER.error(f"Unexpected error occurred: {str(e)}")
+        raise
+
+    finally:
+        # Ensure the DVC push is executed even if the commit process fails
+        run_shell_command(f"dvc add {dvc_raw_data_folder}")
+        run_shell_command(f"dvc push -r {dvc_remote_name}")
 
 
 def make_new_data_version(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
