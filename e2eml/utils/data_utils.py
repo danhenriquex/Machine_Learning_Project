@@ -50,10 +50,10 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
         run_shell_command("git add .")
 
         # Check Git status to ensure there are changes to commit
-        git_status = check_output(["git", "status", "--porcelain"]).decode().strip()
-        if not git_status:
-            DATA_UTILS_LOGGER.info("No changes to commit.")
-            return
+        # git_status = check_output(["git", "status", "--porcelain"]).decode().strip()
+        # if not git_status:
+        #     DATA_UTILS_LOGGER.info("No changes to commit.")
+        #     return
 
         # Commit changes
         run_shell_command(f"git commit -nm 'Updated version of the data from v{current_version} to {next_version}'")
