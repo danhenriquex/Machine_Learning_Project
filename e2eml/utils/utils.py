@@ -8,4 +8,10 @@ def get_logger(name: str) -> logging.Logger:
 
 
 def run_shell_command(cmd: str) -> str:
-    return subprocess.run(cmd, text=True, shell=True, check=True, capture_output=True).stdout
+    try:
+        result = subprocess.run(cmd, text=True, shell=True, check=True, capture_output=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Command '{cmd}' failed with return code {e.returncode}")
+        print(f"Error output: {e.stderr}")
+        raise
