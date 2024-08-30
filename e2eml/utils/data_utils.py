@@ -37,7 +37,7 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
     current_version = ""
 
     if not current_version:
-        current_version = "0"
+        current_version = run_shell_command("git tag --list | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
     next_version = f"v{int(current_version)+1}"
     run_shell_command(f"dvc add {dvc_raw_data_folder}")
     run_shell_command("git add .")
