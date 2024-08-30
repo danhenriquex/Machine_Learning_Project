@@ -62,7 +62,7 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
 
         # Push changes
         run_shell_command(f"dvc push {dvc_raw_data_folder}.dvc --remote {dvc_remote_name}")
-        ## run_shell_command("git push --follow-tags")
+        # run_shell_command("git push --follow-tags")
         run_shell_command("git push -f --tags")
 
     except CalledProcessError as e:
