@@ -9,7 +9,7 @@ HOST_NAME = $(shell hostname)
 ifeq (, $(shell which docker-compose))
 	DOCKER_COMPOSE_COMMAND = docker compose
 else
-	DOCKER_COMPOSE_COMMAND = docker-compose
+	DOCKER_COMPOSE_COMMAND = docker compose
 endif
 
 SERVICE_NAME = app
