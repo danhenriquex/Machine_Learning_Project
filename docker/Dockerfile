@@ -50,3 +50,5 @@ USER ${USER_NAME}
 
 RUN git config --global user.email "danilohssantana@gmail.com" \
     && git config --global user.name "danhenriquex"
+
+CMD ["tail", "-f", "/dev/null"]
