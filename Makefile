@@ -2,7 +2,7 @@
 .PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
 
 SHELL = /usr/bin/env bash
-USER_NAME = $(shell whoami)
+USER_NAME = danhenriquex
 USER_ID = $(shell id -u)
 HOST_NAME = $(shell hostname)
 
