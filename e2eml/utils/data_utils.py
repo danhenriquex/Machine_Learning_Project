@@ -1,5 +1,5 @@
 from pathlib import Path
-from subprocess import CalledProcessError, SubprocessError, check_output, run
+from subprocess import CalledProcessError, SubprocessError
 
 from e2eml.utils.utils import get_logger, run_shell_command
 
@@ -32,7 +32,7 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
         DATA_UTILS_LOGGER.info("DVC storage was already initialized...")
 
 
-def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str):
+def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
     DATA_UTILS_LOGGER.info("Committing to DVC")
 
     try:

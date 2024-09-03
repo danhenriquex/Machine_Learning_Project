@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from e2eml.config_schemas.config_schema import Config
 from e2eml.utils.config_utils import get_config
 from e2eml.utils.data_utils import initialize_dvc, initialize_dvc_storage, make_new_data_version
