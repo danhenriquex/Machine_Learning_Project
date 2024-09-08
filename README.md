@@ -5,9 +5,7 @@
 <p align="center">
  <a href="#overview">Overview</a> •
  <a href="#features">Technologies and Tools Used</a> •
- <a href="#roadmap">Project Structure</a> • 
  <a href="#started">Getting Started</a> • 
- <a href="#learned">What I Learned</a> •
  <a href="#author">Author</a>
 </p>
 
@@ -33,24 +31,6 @@ This project demonstrates the setup of a Data Version Control (DVC) system using
 
 </div>
 
-<div id="roadmap">
-
-### Project Structure
-
-```bash
-├── dags/                          # Contains the DAGs for the Airflow scheduler
-│   ├── hello.py	           # Example DAG definition
-│   ├── fetch_and_preview.py       # Example DAG definition
-├── k8s                            # Contains the configuration for deploying Airflow using Helm
-│   ├── dashboard-adminuser.yaml	            
-│   ├── dashboard-clusterrole.yaml       
-│   ├── dashboard-secret.yaml 
-├── README.md                      
-└── .gitignore                     # Files ignored by Git
-
-```
-</div>
-
 <div id="started">
 	
 
@@ -73,59 +53,24 @@ To get started with this project, follow these steps:
    cd <repository_directory>
    ```
    
-2. **User Configurations:**
+2. **Create environtment:**
 
    ```bash
-   # Create the ServiceAccount.
-   kubectl apply -f dashboard-adminuser.yaml
-   #  bind the admin-user to the cluster-admin role
-   kubectl apply -f dashboard-clusterrole.yaml
-   # Generate the token
-   kubectl apply -f dashboard-secret.yaml
+   # To install and update dependencies
+   make lock-dependencies
+   
+   # Build the docker container
+   # make build
    ```
-3. **Installing Kubernetes Dashboard:**
+3. **Update Dataset**
    
    ```bash
-   # Deploys the Kubernetes Dashboard to the cluster.
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-
-   # Starts a proxy server that allows you to access the Kubernetes Dashboard locally
-   kubectl proxy
-
-   # Retrieves the authentication token required to log in to the Kubernetes Dashboard with the admin-user account.
-   kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
-   ```
-
-4. **Configuring Airflow:**
-
-   ```bash
-   # Makes the Airflow charts available for installation.
-   helm repo add apache-airflow https://airflow.apache.org\n
-
-   # Ensures you have the latest version of Airflow charts.
-   helm repo update
-
-   # Deploys Apache Airflow into your Kubernetes cluster.
-   helm install airflow apache-airflow/airflow --namespace airflow --create-namespace --debug
-
-   # Enables you to access the Airflow web UI locally through port 8080.
-   kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
+   # Updates dataset in GCP and push changes to github repository
+   make version-data
    ```
 
 </div>
 
-<div id="learned">
-	
-
-### What I learned
-	
-- Kubernetes: Mastered deployment and orchestration of containerized applications using Kubernetes.
-- Airflow: Developed an understanding of workflow orchestration and scheduling using Apache Airflow.
-- Helm: Gained experience in managing Kubernetes packages and simplifying complex deployments..
-- Docker: Improved my ability to create consistent environments for development, testing, and production.
-- Python: Enhanced my skills in Python for data pipeline automation and management.
-
-</div>
 
 ### Author
 
