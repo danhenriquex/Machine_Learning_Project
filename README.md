@@ -51,7 +51,7 @@ To get started with this project, follow these steps:
    make lock-dependencies
    
    # Build the docker container
-   # make build
+   make build
    ```
 3. **Update Dataset**
    
