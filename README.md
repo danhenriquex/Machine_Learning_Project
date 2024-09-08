@@ -32,15 +32,6 @@ This project demonstrates the setup of a Data Version Control (DVC) system using
 </div>
 
 <div id="started">
-	
-
-### Scripts Overview
-
-- `dashboard-adminuser.yaml`: This file creates a ServiceAccount called admin-user in the kubernetes-dashboard namespace. Service accounts are used to provide an identity for processes that run inside pods, and here it's specifically for admin-level access to the Kubernetes dashboard.
-- `dashboard-clusterrole.yaml`: This file creates a ClusterRoleBinding, which binds the admin-user ServiceAccount to the cluster-admin role. The cluster-admin role grants the highest level of access to the Kubernetes cluster, allowing full control over all resources.
-- `dashboard-secret.yaml`: This file generates a Secret containing the token for the admin-user ServiceAccount. This token is used to authenticate and access the Kubernetes Dashboard with admin privileges.
-- `fetch_and_preview.py`: Automates the process of fetching sales data from a URL, processing it using Pandas, and then previewing the results.
-- `hello.py`: Defines a simple Airflow DAG that schedules two tasks. These tasks use BashOperator to execute bash commands, demonstrating a basic workflow where one task prints "Hello World" and the other prints "Hello Data Mastery Lab".
 
 ### Getting Started
 
