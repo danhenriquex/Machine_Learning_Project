@@ -1,4 +1,4 @@
-<h1 align="center">🚗 Machine Learning Project</h1>
+<h1 align="center">🤖 Machine Learning Project</h1>
 <p align="center" id="objetivo">Learning MLOps. 
 </p> 
 
